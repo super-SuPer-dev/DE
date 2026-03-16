@@ -1,0 +1,16 @@
+[project]
+name = "university-popularity-de"
+version = "0.2.0"
+description = "Data Engineering pipeline analyzing Thai university popularity across TCAS, MHESI, YouTube, Google Trends, and Wikipedia"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.3",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.1",
+    "pytrends>=4.9.2",
+    "python-dotenv>=1.2.2",
+    "requests>=2.32.5",
+    "seaborn>=0.13.2",
+]
