@@ -41,67 +41,67 @@ def run_pipeline():
     print("=" * 60)
     start = time.time()
 
-    # ── STEP 1: Initialize Gold layer ────────────────────────────
+    # ── STEP 1: Initialize database ───────────────────────────────
     log.info("[Step 1/10] Initializing SQLite database...")
     init_db()
     load_dimensions()
 
-    # ── STEP 2: Extract TCAS (Bronze) ────────────────────────────
+    # ── STEP 2: Extract TCAS ──────────────────────────────────────
     try:
         log.info("[Step 2/10] Extracting TCAS data...")
         df_tcas = extract_tcas()
-        log.info("  -> %s TCAS records in Bronze", f"{len(df_tcas):,}")
+        log.info("  -> %s TCAS records extracted", f"{len(df_tcas):,}")
     except Exception as e:
         log.error("TCAS extraction failed: %s", e)
 
-    # ── STEP 3: Extract MHESI (Bronze) ───────────────────────────
+    # ── STEP 3: Extract MHESI ─────────────────────────────────────
     try:
         log.info("[Step 3/10] Extracting MHESI data...")
         df_mhesi = extract_mhesi()
-        log.info("  -> %s MHESI records in Bronze", f"{len(df_mhesi):,}")
+        log.info("  -> %s MHESI records extracted", f"{len(df_mhesi):,}")
     except Exception as e:
         log.error("MHESI extraction failed: %s", e)
 
-    # ── STEP 4: Extract YouTube (Bronze) ─────────────────────────
+    # ── STEP 4: Extract YouTube ───────────────────────────────────
     try:
         log.info("[Step 4/10] Extracting YouTube data...")
         df_youtube = extract_youtube()
-        log.info("  -> %s YouTube videos in Bronze", f"{len(df_youtube):,}")
+        log.info("  -> %s YouTube videos extracted", f"{len(df_youtube):,}")
     except Exception as e:
         log.error("YouTube extraction failed: %s", e)
 
-    # ── STEP 5: Extract Google Trends (Bronze) ───────────────────
+    # ── STEP 5: Extract Google Trends ─────────────────────────────
     try:
         log.info("[Step 5/10] Extracting Google Trends data...")
         df_trends = extract_google_trends()
-        log.info("  -> %s Google Trends records in Bronze", f"{len(df_trends):,}")
+        log.info("  -> %s Google Trends records extracted", f"{len(df_trends):,}")
     except Exception as e:
         log.error("Google Trends extraction failed: %s", e)
 
-    # ── STEP 6: Extract Wikipedia Pageviews (Bronze) ─────────────
+    # ── STEP 6: Extract Wikipedia Pageviews ───────────────────────
     try:
         log.info("[Step 6/10] Extracting Wikipedia pageview data...")
         df_wiki = extract_wikipedia()
-        log.info("  -> %s Wikipedia pageview records in Bronze", f"{len(df_wiki):,}")
+        log.info("  -> %s Wikipedia records extracted", f"{len(df_wiki):,}")
     except Exception as e:
         log.error("Wikipedia extraction failed: %s", e)
 
-    # ── STEP 7: Transform YouTube (Bronze -> Silver) ─────────────
+    # ── STEP 7: Transform YouTube (raw -> clean) ─────────────────
     try:
         log.info("[Step 7/10] Transforming YouTube data...")
         clean_youtube()
     except Exception as e:
         log.error("YouTube transform failed: %s", e)
 
-    # ── STEP 8: Transform Google Trends (Bronze -> Silver) ───────
+    # ── STEP 8: Transform Google Trends (raw -> clean) ────────────
     try:
         log.info("[Step 8/10] Transforming Google Trends data...")
         clean_google_trends()
     except Exception as e:
         log.error("Google Trends transform failed: %s", e)
 
-    # ── STEP 9: Load all data into Gold layer ────────────────────
-    log.info("[Step 9/10] Loading into SQLite Gold layer...")
+    # ── STEP 9: Load all data into database ───────────────────────
+    log.info("[Step 9/10] Loading into SQLite database...")
     for loader_name, loader_fn in [
         ("YouTube", load_youtube),
         ("TCAS", load_tcas),
@@ -125,7 +125,7 @@ def run_pipeline():
     elapsed = time.time() - start
     print(f"\n{'=' * 60}")
     print(f"  Pipeline complete! Total time: {elapsed:.1f}s")
-    print(f"  Gold DB: data/gold/university.db")
+    print(f"  Database: data/university.db")
     print(f"{'=' * 60}")
 
 

@@ -1,5 +1,5 @@
 """
-Initialize the SQLite Gold layer database.
+Initialize the SQLite database database.
 Creates all dimension and fact tables from sql/create_tables.sql.
 """
 import os
@@ -32,7 +32,7 @@ def get_connection() -> sqlite3.Connection:
 
 
 def get_university_map() -> dict:
-    """Return a dict mapping Thai university name -> university_id from the Gold DB."""
+    """Return a dict mapping Thai university name -> university_id from the database."""
     conn = get_connection()
     df = pd.read_sql("SELECT university_id, name_th FROM dim_university", conn)
     conn.close()

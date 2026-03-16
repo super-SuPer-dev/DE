@@ -1,6 +1,6 @@
 """
 Extract YouTube video data for Thai universities using YouTube Data API v3.
-Saves raw data to data/bronze/youtube_raw.csv
+Saves raw data to data/raw/youtube_raw.csv
 
 Requirements:
   - Get a free API key at https://console.cloud.google.com/
@@ -14,11 +14,11 @@ import csv as csv_mod
 import logging
 import requests
 import pandas as pd
-from src.config import UNIVERSITIES, YOUTUBE_API_KEY, BRONZE_DIR
+from src.config import UNIVERSITIES, YOUTUBE_API_KEY, RAW_DIR
 
 log = logging.getLogger(__name__)
 
-STAGING_FILE = os.path.join(BRONZE_DIR, "youtube_raw.csv")
+STAGING_FILE = os.path.join(RAW_DIR, "youtube_raw.csv")
 API_KEY = YOUTUBE_API_KEY
 
 SEARCH_TEMPLATES = [

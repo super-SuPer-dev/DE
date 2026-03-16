@@ -5,20 +5,20 @@ import os
 import logging
 import pandas as pd
 from src.load.init_db import get_connection
-from src.config import SILVER_DIR
+from src.config import CLEAN_DIR
 
 log = logging.getLogger(__name__)
 
-SILVER_FILE = os.path.join(SILVER_DIR, "google_trends_clean.csv")
+CLEAN_FILE = os.path.join(CLEAN_DIR, "google_trends_clean.csv")
 
 
 def load_google_trends():
-    if not os.path.exists(SILVER_FILE):
-        log.warning("Silver file not found: %s. Skipping.", SILVER_FILE)
+    if not os.path.exists(CLEAN_FILE):
+        log.warning("Silver file not found: %s. Skipping.", CLEAN_FILE)
         return
 
     log.info("Loading Google Trends data into SQLite...")
-    df = pd.read_csv(SILVER_FILE)
+    df = pd.read_csv(CLEAN_FILE)
 
     if df.empty:
         log.warning("No Google Trends data to load.")

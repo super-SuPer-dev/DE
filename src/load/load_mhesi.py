@@ -1,12 +1,12 @@
 """
-Load Bronze MHESI data to SQLite Gold Layer.
+Load MHESI data to SQLite database.
 """
 import os
 import logging
 import json
 import pandas as pd
 from src.load.init_db import get_connection, get_university_map
-from src.config import BRONZE_DIR
+from src.config import RAW_DIR
 
 log = logging.getLogger(__name__)
 
@@ -17,8 +17,8 @@ def load_mhesi():
 
     uni_map = get_university_map()
 
-    bronze_file = os.path.join(BRONZE_DIR, "mhesi_raw.csv")
-    df = pd.read_csv(bronze_file, low_memory=False)
+    raw_file = os.path.join(RAW_DIR, "mhesi_raw.csv")
+    df = pd.read_csv(raw_file, low_memory=False)
 
     uni_col = next((c for c in df.columns if "UNIV" in c and "TH" in c), None)
     if uni_col is None:

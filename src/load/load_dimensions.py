@@ -1,5 +1,5 @@
 """
-Load static dimension tables into the SQLite Gold layer.
+Load static dimension tables into the SQLite database.
 """
 import logging
 from src.config import UNIVERSITIES

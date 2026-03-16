@@ -10,12 +10,11 @@ load_dotenv()
 
 # ── Directory paths ──────────────────────────────────────────────
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BRONZE_DIR = os.path.join(PROJECT_ROOT, "data", "bronze")
-SILVER_DIR = os.path.join(PROJECT_ROOT, "data", "silver")
-GOLD_DIR = os.path.join(PROJECT_ROOT, "data", "gold")
+RAW_DIR = os.path.join(PROJECT_ROOT, "data", "raw")
+CLEAN_DIR = os.path.join(PROJECT_ROOT, "data", "clean")
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output_plots")
 
-DB_PATH = os.path.join(GOLD_DIR, "university.db")
+DB_PATH = os.path.join(PROJECT_ROOT, "data", "university.db")
 SQL_DIR = os.path.join(PROJECT_ROOT, "sql")
 
 # ── API keys ─────────────────────────────────────────────────────

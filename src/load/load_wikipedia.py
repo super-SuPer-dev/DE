@@ -1,24 +1,24 @@
 """
-Load Wikipedia pageview data into the SQLite Gold layer.
+Load Wikipedia pageview data into the SQLite database.
 """
 import os
 import logging
 import pandas as pd
 from src.load.init_db import get_connection, get_university_map
-from src.config import BRONZE_DIR
+from src.config import RAW_DIR
 
 log = logging.getLogger(__name__)
 
-BRONZE_FILE = os.path.join(BRONZE_DIR, "wikipedia_raw.csv")
+RAW_FILE = os.path.join(RAW_DIR, "wikipedia_raw.csv")
 
 
 def load_wikipedia():
-    if not os.path.exists(BRONZE_FILE):
-        log.warning("Wikipedia bronze file not found: %s. Skipping.", BRONZE_FILE)
+    if not os.path.exists(RAW_FILE):
+        log.warning("Wikipedia raw file not found: %s. Skipping.", RAW_FILE)
         return
 
     log.info("Loading Wikipedia pageview data into SQLite...")
-    df = pd.read_csv(BRONZE_FILE)
+    df = pd.read_csv(RAW_FILE)
 
     if df.empty:
         log.warning("No Wikipedia data to load.")

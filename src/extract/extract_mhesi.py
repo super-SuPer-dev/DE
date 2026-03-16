@@ -1,16 +1,16 @@
 """
 Extract MHESI data from data.mhesi.go.th Open Data API.
-Saves raw data to data/bronze/mhesi_raw.csv
+Saves raw data to data/raw/mhesi_raw.csv
 """
 import os
 import logging
 import requests
 import pandas as pd
-from src.config import BRONZE_DIR
+from src.config import RAW_DIR
 
 log = logging.getLogger(__name__)
 
-STAGING_FILE = os.path.join(BRONZE_DIR, "mhesi_raw.csv")
+STAGING_FILE = os.path.join(RAW_DIR, "mhesi_raw.csv")
 BASE_URL = "https://data.mhesi.go.th/api/3/action/datastore_search"
 RESOURCE_ID = "e6e2fad4-4018-4ac6-93eb-1370aeef8ed1"
 LIMIT = 5000

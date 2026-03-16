@@ -1,7 +1,7 @@
 """
 Extract Wikipedia pageview data for Thai universities.
 Uses the Wikimedia REST API (free, no API key needed).
-Saves raw data to data/bronze/wikipedia_raw.csv
+Saves raw data to data/raw/wikipedia_raw.csv
 
 Uses DAILY granularity to get 5,000+ records.
 API docs: https://wikimedia.org/api/rest_v1/
@@ -11,11 +11,11 @@ import time
 import logging
 import requests
 import pandas as pd
-from src.config import UNIVERSITIES, WIKIPEDIA_ARTICLES, BRONZE_DIR
+from src.config import UNIVERSITIES, WIKIPEDIA_ARTICLES, RAW_DIR
 
 log = logging.getLogger(__name__)
 
-STAGING_FILE = os.path.join(BRONZE_DIR, "wikipedia_raw.csv")
+STAGING_FILE = os.path.join(RAW_DIR, "wikipedia_raw.csv")
 BASE_URL = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article"
 HEADERS = {"User-Agent": "UniversityPopularityDE/1.0 (student project)"}
 

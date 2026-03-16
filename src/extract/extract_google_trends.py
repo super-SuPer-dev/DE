@@ -1,7 +1,7 @@
 """
 Extract Google Trends interest data for Thai universities.
 Uses pytrends library (free, no API key needed).
-Saves raw data to data/bronze/google_trends_raw.csv
+Saves raw data to data/raw/google_trends_raw.csv
 
 Strategy: Query one university at a time with generous delays (10s+)
 to avoid Google's 429 rate limits. Uses progress tracking for resume.
@@ -13,12 +13,12 @@ import logging
 import random
 import pandas as pd
 from pytrends.request import TrendReq
-from src.config import UNIVERSITIES, BRONZE_DIR
+from src.config import UNIVERSITIES, RAW_DIR
 
 log = logging.getLogger(__name__)
 
-STAGING_FILE = os.path.join(BRONZE_DIR, "google_trends_raw.csv")
-PROGRESS_FILE = os.path.join(BRONZE_DIR, "google_trends_progress.json")
+STAGING_FILE = os.path.join(RAW_DIR, "google_trends_raw.csv")
+PROGRESS_FILE = os.path.join(RAW_DIR, "google_trends_progress.json")
 
 # Multiple timeframes for more data points
 TIMEFRAMES = [

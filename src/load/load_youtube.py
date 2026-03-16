@@ -1,16 +1,16 @@
 """
-Load cleaned YouTube silver data into the SQLite Gold layer.
+Load cleaned YouTube clean data into the SQLite database.
 Inserts into fact_youtube_engagement table.
 """
 import os
 import logging
 import pandas as pd
 from src.load.init_db import get_connection
-from src.config import SILVER_DIR
+from src.config import CLEAN_DIR
 
 log = logging.getLogger(__name__)
 
-SILVER_FILE = os.path.join(SILVER_DIR, "youtube_clean.csv")
+CLEAN_FILE = os.path.join(CLEAN_DIR, "youtube_clean.csv")
 
 COLUMNS = [
     "university_id", "video_id", "title", "channel_title",
@@ -21,7 +21,7 @@ COLUMNS = [
 
 def load_youtube():
     log.info("Loading YouTube data into SQLite...")
-    df = pd.read_csv(SILVER_FILE)
+    df = pd.read_csv(CLEAN_FILE)
     df = df[COLUMNS]
 
     conn = get_connection()

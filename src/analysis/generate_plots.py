@@ -1,5 +1,5 @@
 """
-Generate comprehensive analytical visualizations from the SQLite Gold Layer.
+Generate comprehensive analytical visualizations from the SQLite database.
 Saves plots to the 'output_plots' directory.
 
 Plots generated:
@@ -30,9 +30,12 @@ from src.config import DB_PATH, OUTPUT_DIR
 log = logging.getLogger(__name__)
 
 # Configure Matplotlib for Thai Language
-plt.rcParams['font.family'] = 'Tahoma'
-plt.rcParams['axes.unicode_minus'] = False
+# NOTE: seaborn set_style resets font.family to sans-serif, so we must set fonts AFTER it.
 sns.set_style("whitegrid")
+plt.rcParams.update({
+    'font.family': 'Tahoma',
+    'axes.unicode_minus': False,
+})
 
 
 def _conn():
@@ -367,7 +370,7 @@ def plot_10_wikipedia_monthly_trends():
 
     # Get top 5
     top5 = pd.read_sql("""
-        SELECT university_id, u.name_th
+        SELECT w.university_id, u.name_th
         FROM fact_wikipedia_pageviews w
         JOIN dim_university u ON w.university_id = u.university_id
         GROUP BY w.university_id ORDER BY SUM(w.pageviews) DESC LIMIT 5
@@ -554,8 +557,6 @@ def plot_13_university_type_comparison():
 def generate_all_plots():
     """Generate all analytical plots."""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    plt.rcParams['font.family'] = 'Tahoma'
-    plt.rcParams['axes.unicode_minus'] = False
 
     plot_01_youtube_views()
     plot_02_tcas_applicants()

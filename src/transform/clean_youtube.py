@@ -1,22 +1,22 @@
 """
-Transform raw YouTube bronze data into cleaned silver layer.
-Saves to data/silver/youtube_clean.csv
+Transform raw YouTube raw data into cleaned clean layer.
+Saves to data/clean/youtube_clean.csv
 """
 import os
 import logging
 import pandas as pd
-from src.config import BRONZE_DIR, SILVER_DIR
+from src.config import RAW_DIR, CLEAN_DIR
 from src.load.init_db import get_university_map
 
 log = logging.getLogger(__name__)
 
-BRONZE_FILE = os.path.join(BRONZE_DIR, "youtube_raw.csv")
-SILVER_FILE = os.path.join(SILVER_DIR, "youtube_clean.csv")
+RAW_FILE = os.path.join(RAW_DIR, "youtube_raw.csv")
+CLEAN_FILE = os.path.join(CLEAN_DIR, "youtube_clean.csv")
 
 
 def clean_youtube() -> pd.DataFrame:
     log.info("Cleaning YouTube data...")
-    df = pd.read_csv(BRONZE_FILE)
+    df = pd.read_csv(RAW_FILE)
 
     uni_map = get_university_map()
     df["university_id"] = df["university_search_term"].map(uni_map)
@@ -37,9 +37,9 @@ def clean_youtube() -> pd.DataFrame:
     assert df["university_id"].notna().all(), "Some rows have unmapped university_id!"
     assert (df["view_count"] >= 0).all(), "Negative view counts found!"
 
-    os.makedirs(os.path.dirname(SILVER_FILE), exist_ok=True)
-    df.to_csv(SILVER_FILE, index=False)
-    log.info("Saved %d cleaned records to %s", len(df), SILVER_FILE)
+    os.makedirs(os.path.dirname(CLEAN_FILE), exist_ok=True)
+    df.to_csv(CLEAN_FILE, index=False)
+    log.info("Saved %d cleaned records to %s", len(df), CLEAN_FILE)
     return df
 
 

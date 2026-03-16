@@ -1,17 +1,17 @@
 """
 Extract TCAS max/min score Excel files from mytcas.com.
-Saves raw data to data/bronze/tcas_raw.csv
+Saves raw data to data/raw/tcas_raw.csv
 """
 import os
 import logging
 import requests
 import pandas as pd
-from src.config import BRONZE_DIR
+from src.config import RAW_DIR
 
 log = logging.getLogger(__name__)
 
-STAGING_FILE = os.path.join(BRONZE_DIR, "tcas_raw.csv")
-DOWNLOADS_DIR = os.path.join(BRONZE_DIR, "downloads_tcas")
+STAGING_FILE = os.path.join(RAW_DIR, "tcas_raw.csv")
+DOWNLOADS_DIR = os.path.join(RAW_DIR, "downloads_tcas")
 
 EXCEL_SOURCES = [
     {"name": "TCAS68 (รอบ 3 ครั้งที่ 2)", "url": "https://assets.mytcas.com/68/T68-stat-r3_2-maxmin-24May25.xlsx"},

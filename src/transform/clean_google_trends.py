@@ -1,27 +1,27 @@
 """
 Transform raw Google Trends bronze data into cleaned silver layer.
-Saves to data/silver/google_trends_clean.csv
+Saves to data/clean/google_trends_clean.csv
 """
 import os
 import logging
 import pandas as pd
-from src.config import BRONZE_DIR, SILVER_DIR
+from src.config import RAW_DIR, CLEAN_DIR
 from src.load.init_db import get_university_map
 
 log = logging.getLogger(__name__)
 
-BRONZE_FILE = os.path.join(BRONZE_DIR, "google_trends_raw.csv")
-SILVER_FILE = os.path.join(SILVER_DIR, "google_trends_clean.csv")
+RAW_FILE = os.path.join(RAW_DIR, "google_trends_raw.csv")
+CLEAN_FILE = os.path.join(CLEAN_DIR, "google_trends_clean.csv")
 
 
 def clean_google_trends() -> pd.DataFrame:
     log.info("Cleaning Google Trends data...")
 
-    if not os.path.exists(BRONZE_FILE):
-        log.warning("Bronze file not found: %s", BRONZE_FILE)
+    if not os.path.exists(RAW_FILE):
+        log.warning("Bronze file not found: %s", RAW_FILE)
         return pd.DataFrame()
 
-    df = pd.read_csv(BRONZE_FILE)
+    df = pd.read_csv(RAW_FILE)
     if df.empty:
         return df
 
@@ -42,9 +42,9 @@ def clean_google_trends() -> pd.DataFrame:
     df = df.drop_duplicates(subset=["university_id", "date", "keyword"])
     log.info("Dropped %d duplicates", before - len(df))
 
-    os.makedirs(os.path.dirname(SILVER_FILE), exist_ok=True)
-    df.to_csv(SILVER_FILE, index=False)
-    log.info("Saved %d cleaned records to %s", len(df), SILVER_FILE)
+    os.makedirs(os.path.dirname(CLEAN_FILE), exist_ok=True)
+    df.to_csv(CLEAN_FILE, index=False)
+    log.info("Saved %d cleaned records to %s", len(df), CLEAN_FILE)
     return df
 
 
